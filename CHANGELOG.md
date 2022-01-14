@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/npm/npm-remote-ls/compare/v1.3.2...v1.5.0) (2022-01-14)
+
+
+### Features
+
+* list peer dependencies, defaults off ([#29](https://github.com/npm/npm-remote-ls/issues/29)) ([bc233b6](https://github.com/npm/npm-remote-ls/commit/bc233b6e15364c3868362030d5b00aa43cc48696))
+
 ## [1.4.0](https://github.com/npm/npm-remote-ls/compare/v1.3.2...v1.4.0) (2022-01-14)
 
 
