@@ -1,74 +1,79 @@
 #!/usr/bin/env node
+import Yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import registryUrl from 'registry-url';
 
-var yargs = require('yargs')
+const argv = Yargs(hideBin(process.argv))
     .usage('$0 <pkg-name> [options]')
-    .options('n', {
+    .command('$0 <pkg-name>', 'list package dependencies', (yargs) => {
+      yargs.positional('pkgName', {
+        describe: 'package name',
+      })
+    }, (argv) => { list_dependencies(argv) })
+    .option('n', {
       alias: 'name',
       description: 'package name'
     })
-    .options('v', {
+    .version(false)
+    .option('v', {
       alias: 'version',
       description: 'package version',
       default: 'latest'
     })
-    .options('e', {
+    .option('e', {
       alias: 'verbose',
       description: 'enable verbose logging',
       default: false,
       boolean: true
     })
-    .options('d', {
+    .option('d', {
       alias: 'development',
       description: 'show development dependencies',
       default: true,
       boolean: true
     })
-    .options('o', {
+    .option('o', {
       alias: 'optional',
       description: 'show optional dependencies',
       default: true,
       boolean: true
     })
-    .options('p', {
+    .option('p', {
       alias: 'peer',
       description: 'show peer dependencies',
       default: false,
       boolean: true
     })
-    .options('r', {
+    .option('r', {
       alias: 'registry',
       description: 'set an alternative registry url',
-      default: require('registry-url')
+      default: registryUrl
     })
-    .options('f', {
+    .option('f', {
       alias: 'flatten',
       description: 'return flat representation of dependencies',
       default: false,
       boolean: true
     })
-var argv = yargs.argv
-var ls = require('../lib').ls
-var treeify = require('treeify')
-var spinner = require('char-spinner')
-var npa = require('npm-package-arg')
+    .parse();
 
-require('../lib').config({
+import { ls, config } from '../lib/index.js';
+import treeify from 'treeify';
+import spinner from 'char-spinner';
+import npa from 'npm-package-arg';
+config({
   verbose: argv.verbose,
   development: argv.development,
   optional: argv.optional,
   peer: argv.peer,
   registry: argv.registry
-})
+});
 
-var name = argv.name || argv._[0] || ''
-
-if (argv.help || !name) {
-  yargs.showHelp()
-} else {
-  spinner()
-  var parsed = npa(name)
-  ls(parsed.name, parsed.rawSpec || argv.version, argv.flatten, function (obj) {
+function list_dependencies(argv) {
+  spinner();
+  const parsed = npa(argv.pkgName);
+  ls(parsed.name, parsed.rawSpec || argv.version, argv.flatten, obj => {
     if (Array.isArray(obj)) console.log(obj)
     else console.log(treeify.asTree(obj))
-  })
+  });
 }
