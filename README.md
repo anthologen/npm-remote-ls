@@ -1,16 +1,16 @@
-# npm-remote-ls
+# @anthologen/npm-remote-ls
 
-[![Build Status](https://travis-ci.org/npm/npm-remote-ls.png)](https://travis-ci.org/npm/npm-remote-ls)
-[![Coverage Status](https://coveralls.io/repos/npm/npm-remote-ls/badge.svg?branch=)](https://coveralls.io/r/npm/npm-remote-ls?branch=master)
-[![NPM version](https://img.shields.io/npm/v/npm-remote-ls.svg)](https://www.npmjs.com/package/npm-remote-ls)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 
 Examine a package's dependency graph before you install it.
 
+## About
+This is a fork of the now archived [npm-remote-ls](https://github.com/npm/npm-remote-ls) repo which has been edited for ESM compatibility.
+
 ## Installation
 
 ```bash
-npm install npm-remote-ls -g
+npm install @anthologen/npm-remote-ls -g
 ```
 
 ## Usage
@@ -43,63 +43,52 @@ npm-remote-ls --help
 **Return dependency graph for `latest` version:**
 
 ```javascript
-var ls = require('npm-remote-ls').ls;
+import { ls } from '@anthologen/npm-remote-ls'
 
-ls('grunt', 'latest', function(obj) {
-  console.log(obj);
-});
+ls('grunt', (obj) => console.log(obj))
+ls('grunt', 'latest', (obj) => console.log(obj))
 ```
 
 **Return dependency graph for specific version:**
 
 ```javascript
-var ls = require('npm-remote-ls').ls;
+import { ls } from '@anthologen/npm-remote-ls'
 
-ls('grunt', '0.1.0', function(obj) {
-  console.log(obj);
-});
+ls('grunt', '0.1.0', (obj) => console.log(obj));
 ```
 
 **Return a flattened list of dependencies:**
 
 ```javascript
-var ls = require('npm-remote-ls').ls;
+import { ls } from '@anthologen/npm-remote-ls'
 
-ls('grunt', '0.1.0', true, function(obj) {
-  console.log(obj);
-});
+ls('grunt', '0.1.0', true, (obj) => console.log(obj));
 ```
 
 **Configure to only return production dependencies:**
 
 ```javascript
-var ls = require('npm-remote-ls').ls
-var config = require('npm-remote-ls').config
+import { ls } from '@anthologen/npm-remote-ls'
 
-config({
+const config = {
   development: false,
   optional: false
-})
+}
 
-ls('yargs', 'latest', true, function (obj) {
-  console.log(obj)
-})
+ls('grunt', 'latest', false, config, (obj) => console.log(obj))
 ```
 
 **Configure to return peer dependencies:**
 
 ```javascript
-var ls = require('npm-remote-ls').ls
-var config = require('npm-remote-ls').config
+import { ls } from '@anthologen/npm-remote-ls'
 
-config({
+const config = {
   development: true,
   peer: true
-})
+}
 
-ls('grunt-contrib-coffee', 'latest', true, function (obj) {
-  console.log(obj)
-})
+ls('grunt', 'latest', false, config, (obj) => console.log(obj))
 ```
 
 ## License
