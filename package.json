@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/npm/npm-remote-ls/issues"
   },
-  "homepage": "https://github.com/npm/npm-remote-ls",
+  "homepage": "https://github.com/anthologen/npm-remote-ls",
   "devDependencies": {
     "chai": "^4.3.4",
     "nock": "^13.2.2",
