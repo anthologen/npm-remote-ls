@@ -4,6 +4,10 @@
 
 Examine a package's dependency graph before you install it.
 
+## About
+This is a fork of the now archived [npm-remote-ls](https://github.com/npm/npm-remote-ls) repo which has been edited for ESM compatibility.
+
+
 ## Installation
 
 ```bash
@@ -87,9 +91,6 @@ const config = {
 
 ls('grunt', 'latest', false, config, (obj) => console.log(obj))
 ```
-
-## About
-This is a fork of the now archived [npm-remote-ls](https://github.com/npm/npm-remote-ls) repo which has been edited for ESM compatibility.
 
 ## License
 
